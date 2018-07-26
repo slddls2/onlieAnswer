@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>在线测试--登录</title>
+<link rel="stylesheet" type="text/css" href="css/index.css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<!--<script type="text/javascript" src="js/index.js"></script>-->
+</head>
+<body class="indexBody">
+	<div class="loginmain">
+		<div id="message"></div>
+		<form action="#" class="loginForm" onsubmit="return login()" method="post">
+			<div class="uidDiv">
+				<span ></span>
+				<input type="text" name="uid" placeholder="请输入考号" required="required" pattern="\w+"/>
+	 		</div>
+	 		<div class="unameDiv">
+				<span></span>
+				<input type="text" name="uname" placeholder="请输入姓名" required="required" pattern="\S+"/>
+	 		</div>
+	 		<div>
+				<input type="submit"  value="登录" />
+	 		</div>
+		</form>
+	</div>
+</body>
+<script type="text/javascript">
+	//登录方法
+	function login(){
+		//异步请求后台验证
+		$.post(
+			"UserInfo?type=login",
+			$("form").serialize(),
+			function(data){
+				if(data.message==="登录成功"){
+					if(data.user.status=="tea"){//教师登录成绩查询页面
+						window.location.href="html/marksFind.html";
+					}else {//学生登录科目选择页面
+						window.location.href="html/main.html";
+					}
+				}else{//登录失败提示信息
+					$("#message").html(data.message);
+				}
+			},
+			"json"
+		);
+		return false;
+	}
+</script>
+</html>

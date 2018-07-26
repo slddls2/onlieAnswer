@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>在线测试--科目选择</title>
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/jquery.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div><span class="tr">学员姓名</span><span class="td" id="uname"></span></div>
+			<div><span class="tr">班级</span><span class="td" id="uClass"></span></div>
+			<form action="#" >
+			<div><span class="tr">请选择科目</span>
+			</div>
+			<div class="option td" id="checkbox"></div>
+			<div>
+				<span class="tr">出题数量</span>
+				<select name="num" class="td opt" >
+					<option value="10" selected="selected">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="40">40</option>
+					<option value="50">50</option>
+				</select>				
+			</div>
+			<div><input type="button" value="开始答题" id="submit"/></div>
+			</form>
+		</div>
+	</body>
+	<script >
+		$(function(){
+			//从后台获取页面要显示的数据
+			$.post(
+				"../Course?type=main",
+				{},
+				function(data){
+					$("#uname").html(data.user.uname);
+					$("#uClass").html(data.user.uclass);
+					var course = data.course;
+					/* alert(data.course);
+					alert(course[5]); */
+					for (var i=0; i<course.length;i++) {
+						$("#checkbox").append("<label>"
+						+"<input type='checkbox' name='cid' value='"+course[i].cid+"'  />"+course[i].cname
+						+"</label>");
+					}
+				},
+				"json"
+			);
+		})
+		//提交用户选择，并跳转
+		document.getElementById("submit").onclick=function(){
+			var inputs = document.getElementsByName("cid");
+			var checked = false;
+			for(var j in inputs){
+				if(inputs[j].checked){
+					checked = true;
+					break;
+				}
+				
+			}
+			if(!checked){
+				alert("请选择科目");
+			}else{
+				$.post(
+					"../Course?type=save",
+					$("form").serialize(),
+					function(data){
+						window.location.href="answer.html";
+					}
+				);
+			}
+		}
+	</script>
+</html>

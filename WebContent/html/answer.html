@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>在线测试--科目选择</title>
+		<link rel="stylesheet" type="text/css" href="../css/answer.css"/>
+		<script type="text/javascript" src="../js/jquery.js"></script>
+	</head>
+	<body>
+		<div class="main" id="main">
+			<form action="result.html" method="post" id="answerForm" onsubmit="return saveSubmit()">
+				<div id="answer">
+					
+				</div>
+				<div class="submit">
+					<input type="submit" value="提交答案" />
+				</div>
+			</form>
+		</div>
+	</body>
+	<script >
+		//答题数量
+		var answerNum;
+		$(function(){
+			
+			
+			$.ajax({
+				type:"post",
+				url:"../Question?type=answer",
+				dataType:"json",
+				success:function(data){
+					var inputType;
+					answerNum=data.length;
+					for (var i=0; i<answerNum;i++) {
+						if(data[i].option_true.length>1){
+							inputType="checkbox";
+						}else{
+							inputType="radio";
+						}
+						$("#answer").append(
+							"<div class='content'>"
+								+"<div class='qtext'><span>"+i+".&ensp;</span><pre>"+data[i].qtext+"</pre></div>"
+								+"<div class='option'><label><input type='"+inputType+"' value='A' name='"+i+"'/>A.&nbsp;"+data[i].option_a+"</label></div>"
+								+"<div class='option'><label><input type='"+inputType+"' value='B' name='"+i+"'/>B.&nbsp;"+data[i].option_b+"</label></div>"
+								+"<div class='option'><label><input type='"+inputType+"' value='C' name='"+i+"'/>C.&nbsp;"+data[i].option_c+"</label></div>"
+								+"<div class='option'><label><input type='"+inputType+"' value='D' name='"+i+"'/>D.&nbsp;"+data[i].option_d+"</label></div>"
+							+"</div>"                 
+						);
+					}
+				}
+			});
+		})
+		//提交用户选择，并跳转
+		function saveSubmit(){
+			var falg = true;
+			//验证表单是否填完
+			for(var i=0;i<answerNum;i++) {//根据答题数量遍历
+				var inputs = document.getElementsByName(i);
+				var checked = false;
+				for(var j in inputs){
+					if(inputs[j].checked){
+						checked = true;
+						break;
+					}
+				}
+				if(!checked){
+					alert("第"+i+"题未做！");
+					falg = false;
+			       	inputs[0].focus();
+			        return false;
+				}
+	        }
+			
+			if(falg){
+				$.post(
+					"../Question?type=submit",
+					$("form").serialize(),
+					function(data){
+						falg=false;
+						window.location.href="result.html";
+					}
+				);
+			}
+			
+			return false;
+		}
+	</script>
+</html>

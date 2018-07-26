@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>在线测试--测试结果</title>
+	<link rel="stylesheet" type="text/css" href="../css/result.css"/>
+	<script type="text/javascript" src="../js/jquery.js"></script>
+</head>
+<body>
+	<div class="main">
+		<div>
+			<div class="tr">学员姓名</div>
+			<div class="td" id='uname'></div>
+			<div class="tr">所在班级</div>
+			<div class="td" id='uclass'></div>
+		</div>
+		<div>
+			<div class="tr">测试科目</div>
+			<div class="td longtd" id="cname"></div>
+		</div>
+		<div>
+			<div class="tr">答题数量</div>
+			<div class="td" id="test_num"></div>
+			<div class="tr">分数</div>
+			<div class="td" id="marks"></div>
+		</div>
+		<div>
+			<div class="tr">用时</div>
+			<div class="td" id="total_time"></div>
+			<div class="tr">答题编号</div>
+			<div class="td" id="mid"></div>
+		</div>
+		<div>
+			<div class="tr">错题序号</div>
+			<div class="td longtd" id="false_id"></div>
+		</div>
+		<div>
+			<div class="tr">开始时间</div>
+			<div class="td longtd" id="start_time"></div>
+		</div>
+		<div>
+			<div class="tr"><a href="errorAnswer.html">查看错题</a></div>
+			<div class="tr"><a href="main.html">重新答题</a></div>
+		</div>	
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$.post(
+			"../Marks?type=stuFind",
+			{},
+			function(data){
+				$("#uname").html(data.user.uname);
+				$("#uclass").html(data.user.uclass);
+				$("#cname").html(data.cname);
+				$("#test_num").html(data.test_num);
+				$("#marks").html(data.marks);
+				$("#start_time").html(data.start_time);
+				$("#false_id").html(data.false_id);
+				$("#total_time").html(data.total_time);
+				$("#mid").html(data.mid);
+			},
+			"json"
+		);
+	})
+</script>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>在线测试--成绩查询</title>
+		<link rel="stylesheet" type="text/css" href="../css/marksFind.css"/>
+		<script type="text/javascript" src="../js/jquery.js"></script>
+	</head>
+
+	<body>
+		<div class="header">
+			<form action="#">
+				<div class="header-div">
+				<div class="title">筛选条件</div>
+				<div class="content">
+					<select name="find1" >
+						<option selected="selected" disabled="disabled">请选择</option>
+						<option value="cname">答题科目</option>
+						<option value="test_num">答题数量</option>
+						<option value="marks">成绩</option>
+						<option value="uname">姓名</option>
+						<option value="mid">答题编号</option>
+					</select>
+					<input type="text" id="find1" />
+				</div>
+				<div class="content">
+					<select name="find2">
+						<option selected="selected" disabled="disabled">请选择</option>
+						<option value="cname">答题科目</option>
+						<option value="test_num">答题数量</option>
+						<option value="marks">成绩</option>
+						<option value="uname">姓名</option>
+						<option value="mid">答题编号</option>
+					</select>
+					<input type="text" id="find2" />
+				</div>
+				</div>
+				<div class="header-div">
+				<div class="title">答题时间</div>
+				<div class="content">
+					<input type="date" />
+					<input type="time"  />
+					<input type="hidden" id="start_time1" name="start_time1">
+				</div>
+				<div class="title">~</div>
+				<div class="content">
+					<input type="date" id="date2" />
+					<input type="time" id="time2" />
+					<input type="hidden" id="start_time2" name="start_time2">
+				</div>
+				<div class="findBut">
+					<input type="button"  value="查询"  />
+				</div>
+				</div>
+			</form>
+		</div>
+		<div class="data">
+			<div class="data-title">
+				<div class="td0">答题编号</div>
+				<div class="td1">姓名</div>
+				<div class="td2">班级</div>
+				<div class="td3">科目</div>
+				<div class="td4">答题数量</div>
+				<div class="td5">分数</div>
+				<div class="td6">用时</div>
+				<div class="td7">答题时间</div>
+				<div class="td8">错题编号</div>
+				<div class="td9"></div>
+			</div>
+		</div>
+	</body>
+<script type="text/javascript">
+	$(function(){
+		find();
+		//选择下拉框，改变紧跟后面的input的name值
+		$("select").change(
+			function(){
+				$(this).next("input").attr("name",$(this).val());
+			}
+		);
+		//查询按钮的单击事件---提交表单
+		$("input[type=button]")[0].onclick=function (){
+			find();
+			//$("form")[0].reset();
+		};
+		$("input[type=date]").change(
+			function(){
+				var date = $(this).val();
+				$(this).nextAll("input[type=hidden]").val(date);
+				$(this).next("input[type=time]").val("");
+			}
+		);
+		$("input[type=time]").change(
+			function(){
+				var dateTime = $(this).prev("input[type=date]").val()+"  "+$(this).val()
+				$(this).next("input[type=hidden]").val(dateTime);
+				alert(dateTime);
+			}
+		);
+	})
+	function find(){
+		$.ajax({
+			type:"post",
+			url:"../Marks?type=teaFind",
+			dataType:"json",
+			data:$("form").serialize(),
+			success:function(data){
+				for(var marks in data){
+					/*$(".data").append("<div class='data-content'>"
+						+"<div class='td0' id='mid'>"+data[marks].mid+"</div>"
+						+"<div class='td1' id='uname'>"+data[marks].user.uname+"</div>"
+						+"<div class='td2' id='uclass'>"+data[marks].user.uclass+"</div>" 
+						+"<div class='td3 longText' id='cname'>"+data[marks].cname+"</div>"
+						+"<div class='td4' id='test_num'>"+data[marks].test_num+"</div>"
+						+"<div class='td5' id='marks'>"+data[marks].marks+"</div>"
+						+"<div class='td6' id='total_time'>"+data[marks].total_time+"</div>"
+						+"<div class='td7' id='start_time'>"+data[marks].start_time+"</div>"
+						+"<div class='td8 longText' id='false_id'>"+data[marks].false_id+"</div>"
+					+"</div>");*/
+					$(".data").append(function(index,html){
+						var str = "<div class='data-content'>"
+							+"<div class='td0' id='mid'>"+data[marks].mid+"</div>"
+							+"<div class='td1' id='uname'>"+data[marks].user.uname+"</div>"
+							+"<div class='td2' id='uclass'>"+data[marks].user.uclass+"</div>" 
+							+"<div class='td3' id='cname'>"+data[marks].cname+"</div>"
+							+"<div class='td4' id='test_num'>"+data[marks].test_num+"</div>"
+							+"<div class='td5' id='marks'>"+data[marks].marks+"</div>"
+							+"<div class='td6' id='total_time'>"+data[marks].total_time+"</div>"
+							+"<div class='td7' id='start_time'>"+data[marks].start_time+"</div>"
+							+"<div class='td8' id='false_id'>"+data[marks].false_id+"</div>"
+						+"</div>";
+						if((data[marks].cname).length>26){
+							str=str.replace(/class='td3'/,"class='td3 longText'");
+						}
+						if(data[marks].false_id.length>26){
+							str=str.replace(/class='td8'/,"class='td8 longText'");
+						}
+						return str;
+					});
+				}
+			}
+		});
+	}
+</script>
+</html>
