@@ -9,27 +9,21 @@
 			.show{
 				background: #ffff00;
 				color: #ff0000;
-				width: 300px;
-				text-align: center;
+				width: 380px;
+				padding-left:20px;
 				font-size:20px;
 				font-weight: bold;
 			}
-			.submit{
-				width: 200px;
-				text-align: center;
-				background: #ddc9be;
-				border: hidden;
-				border-radius: 100px;
-				margin-right: 10px;
-				font-size:25px;
-				margin-left: 5%;
-				margin-top:15px;
-			}
+			
 			.trueOption{
 				color:green;
+				width: 180px;
+				display: inline-block;
 			}
 			.falseOption{
 				color:red;
+				width: 180px;
+				display: inline-block;
 			}
 		</style>
 	</head>
@@ -38,7 +32,7 @@
 				<div id="answer">
 					
 				</div>
-				<div class="submit">
+				<div class="submit btn" >
 					<a href="main.html">重新答题</a>
 				</div>
 		</div>
@@ -62,7 +56,7 @@
 							+"<div class='option'><label>B.&nbsp;"+data[i].option_b+"</label></div>"
 							+"<div class='option'><label>C.&nbsp;"+data[i].option_c+"</label></div>"
 							+"<div class='option'><label>D.&nbsp;"+data[i].option_d+"</label></div>"
-							+"<div class='show'><span class='trueOption'>正确答案："+data[i].option_true+"</span>  &emsp; <span class='falseOption'>你的答案："+data[i].option_stu+"</span> </div>"
+							+"<div class='show'><span class='trueOption'>正确答案："+data[i].option_true+"</span><span class='falseOption'>你的答案："+data[i].option_stu+"</span> </div>"
 						+"</div>"
 					);
 				}

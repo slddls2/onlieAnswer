@@ -1,65 +1,41 @@
-
+@import url("public.css");
 body{
-	background: url(../img/bg.jpeg) no-repeat center top;
+	background: url(../img/bg.jpg) no-repeat center top;
 }
 
 .main{
-	width: 600px;
-	margin: 10% auto 0;
-	padding:30px;
+	max-width: 600px !important;
+	margin-left: 10%;
 	text-align: center;
-	background: #aea19b;
-	border: hidden;
-	border-radius: 5px;
+
 }
 
 .main>div{
 	width:500px;
 	margin:10px auto;
 }
-/* .main>div>div{
-	display: inline-block;
-} */
 .tr{
 	display: inline-block;
 	width:100px;
 	text-align:center;
-	background: #ddc9be;
-	border: hidden;
+	border: solid #ddc9bc 1px;
 	border-radius: 100px;
 	margin-right: 10px;
 }
 .td{
 	display: inline-block;
 	width:120px ;
-	background: #e1cab8;
-	border: hidden;
+	border: solid #ddc9bc 1px;
 	border-radius: 50px;
 }
 .longtd{
-	width:360px;
+	width:350px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 0 5px;
 }
 
-
-.option{
-	border-radius: 20px !important;
-}
-.opt{
-	/* width:auto;
-	padding:0 5%;
-	margin: 0; */
-	text-align:center;
-	text-align-last:center;
-}
-.opt>option{
-	text-align:center;
-	text-align-last:center;
-}
-label {
-	display:inline-block;
-	width:100px;
-	margin-left:20px;
-	margin-right:-10px;
-	text-align:left;
-	float:left;
+div.btn{
+	margin: 20px 0;
 }

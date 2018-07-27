@@ -1,17 +1,13 @@
-
-
-body{
-	background: url(../img/bg.jpeg) no-repeat center top;
-	background-size:100% 200%;
-	overflow: scroll;
-}
+@import url("public.css");
 .main{
-	width:80%;
 	margin:3% 10%;
 	overflow: auto;
 }
 .content{
-	margin: 10px auto;
+	padding: 10px;
+	border: solid #27A9E3 3px;
+	border-radius:10px;
+	margin-bottom: 10px
 }
 .qtext{
 	font-size:20px;
@@ -31,14 +27,7 @@ pre{
 .qtext>span{
 	margin-right: -40px;
 }
-.submit{
-/* 	text-align: center; */
-	
-}
+
 input[type=submit]{
-	width:150px;
-	height:50px;
-	font-size:30px;
-	margin-left: 20%;
-	
+	width: auto;
 }

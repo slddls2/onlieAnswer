@@ -5,25 +5,24 @@
 <title>在线测试--登录</title>
 <link rel="stylesheet" type="text/css" href="css/index.css"/>
 <script type="text/javascript" src="js/jquery.js"></script>
-<!--<script type="text/javascript" src="js/index.js"></script>-->
 </head>
-<body class="indexBody">
-	<div class="loginmain">
-		<div id="message"></div>
-		<form action="#" class="loginForm" onsubmit="return login()" method="post">
-			<div class="uidDiv">
-				<span ></span>
-				<input type="text" name="uid" placeholder="请输入考号" required="required" pattern="\w+"/>
-	 		</div>
-	 		<div class="unameDiv">
-				<span></span>
-				<input type="text" name="uname" placeholder="请输入姓名" required="required" pattern="\S+"/>
-	 		</div>
-	 		<div>
-				<input type="submit"  value="登录" />
-	 		</div>
-		</form>
-	</div>
+<body >
+
+	<div class="maindiv">
+    <div class="message">在线答题--登录</div>
+    <div id="darkbannerwrap"></div>
+    
+    <form action="#" method="post" onsubmit="return login()">
+		<input name="uid" placeholder="请输入学号" required="" type="text">
+		<hr class="hr15">
+		<input name="uname" placeholder="请输入姓名" required="" type="text">
+		<hr class="hr15">
+		<input value="登录" class="btn" type="submit">
+		<hr class="hr20">
+	</form>
+	<div id="message"></div>
+	
+</div>
 </body>
 <script type="text/javascript">
 	//登录方法

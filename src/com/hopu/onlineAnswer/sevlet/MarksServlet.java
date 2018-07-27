@@ -46,7 +46,10 @@ public class MarksServlet extends HttpServlet {
 				option_false+=","+e.getErrorid();
 			}
 			option_false=option_false.substring(1);
-			marks.setMid(service.findMidByMarks(marks));
+			Integer mid = service.findMidByMarks(marks);
+			if(mid!=null){
+				marks.setMid(mid);
+			}
 			marks.setFalse_id(option_false);
 			json = JSON.toJSONString(marks);
 		}else if("lookError".equals(type)){
